@@ -15,57 +15,55 @@ export default async function handler(req, res) {
   }
 
   const numarZile = parseInt(zile) || 3;
-
-  // Generăm exact zilele specificate, nicio zi în plus
   const zileNume = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă', 'Duminică'];
-  const zilePlan = zileNume.slice(0, numarZile).join(', ');
-
+  const zilePlan = zileNume.slice(0, numarZile);
   const genText = gen === 'Masculin' ? 'bărbat' : gen === 'Feminin' ? 'femeie' : 'persoană';
 
-  const focusFeminin = obiectiv === 'Tonifiere' || obiectiv === 'Slăbit'
-    ? 'Pune accent pe exerciții pentru zona inferioară (fese, coapse), core și cardio moderat. Evită exerciții care cresc excesiv masa musculară la spate și umeri.'
+  const focusFeminin = (obiectiv === 'Tonifiere' || obiectiv === 'Slăbit')
+    ? 'Pune accent pe exerciții pentru zona inferioară (fese, coapse), core și cardio moderat.'
     : '';
-
-  const focusMasculin = obiectiv === 'Masă musculară' || obiectiv === 'Forță'
-    ? 'Pune accent pe exerciții compuse grele (genuflexiuni, împins, tracțiuni). Volum mare pe piept, spate, umeri și picioare.'
+  const focusMasculin = (obiectiv === 'Masă musculară' || obiectiv === 'Forță')
+    ? 'Pune accent pe exerciții compuse grele: genuflexiuni, împins, tracțiuni, îndreptări.'
     : '';
-
   const focusGen = gen === 'Feminin' ? focusFeminin : gen === 'Masculin' ? focusMasculin : '';
 
-  const prompt = `Ești antrenor personal expert. Creează un plan de antrenament CONCIS și UȘOR DE ÎNȚELES în română pentru o ${genText}.
+  const prompt = `Ești antrenor personal expert. Creează un plan de antrenament pentru o ${genText}.
 
 DATE:
 - Gen: ${gen || 'nespecificat'}
 - Nivel: ${nivel}
 - Obiectiv: ${obiectiv}
-- Zile de antrenament: ${numarZile} zile (${zilePlan})
+- Zile: ${numarZile} (${zilePlan.join(', ')})
 - Echipament: ${echipament || 'sală completă'}
 - Restricții: ${restrictii || 'niciuna'}
+${focusGen ? '- Focus: ' + focusGen : ''}
 
-REGULI STRICTE:
-1. Creează EXACT ${numarZile} zile de antrenament — nu mai mult, nu mai puțin
-2. Fiecare zi: maxim 5 exerciții, scrise simplu (ex: "Flotări 3x12")
-3. Fără explicații lungi — doar ce trebuie să facă
-4. ${focusGen}
-5. La final: 3 sfaturi de nutriție scurte (1 propoziție fiecare)
-6. Disclaimer scurt: "⚠️ Consultă un medic înainte de a începe."
+INSTRUCȚIUNI CRITICE:
+1. Returnează DOAR un obiect JSON valid, fără text în afara JSON-ului, fără markdown, fără backticks
+2. Creează EXACT ${numarZile} zile
+3. Fiecare zi are EXACT 5 exerciții
+4. Numele exercițiilor în română, scurte (max 3 cuvinte)
+5. youtube_search: termenul de căutare în engleză pentru YouTube (ex: "how to do squat properly")
 
-FORMAT:
-🎯 OBIECTIV: [obiectiv în 1 propoziție]
-
-📅 ZIUA 1 — [Luni / grupă musculară]
-• Exercițiu 1 — seturi x repetări
-• Exercițiu 2 — seturi x repetări
-[etc]
-
-[repetă pentru toate cele ${numarZile} zile]
-
-🥗 NUTRIȚIE:
-• Sfat 1
-• Sfat 2  
-• Sfat 3
-
-⚠️ Consultă un medic înainte de a începe orice program de exerciții.`;
+JSON STRUCTURE:
+{
+  "obiectiv": "descriere scurtă a obiectivului în 1 propoziție",
+  "zile": [
+    {
+      "zi": "Luni",
+      "grupa": "Fese & Coapse",
+      "exercitii": [
+        {
+          "nume": "Genuflexiuni",
+          "seturi": 4,
+          "repetari": "15",
+          "youtube_search": "how to do squat properly for beginners"
+        }
+      ]
+    }
+  ],
+  "nutritie": ["sfat 1", "sfat 2", "sfat 3"]
+}`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -77,7 +75,7 @@ FORMAT:
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
-        max_tokens: 1200,
+        max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }],
       }),
     });
@@ -90,13 +88,20 @@ FORMAT:
       });
     }
 
-    const text = data.content?.map((b) => b.text || '').join('\n') || '';
+    let text = data.content?.map((b) => b.text || '').join('\n') || '';
 
-    if (!text) {
-      return res.status(500).json({ error: 'Nu am primit răspuns. Încearcă din nou.' });
+    // Curățăm orice markdown dacă există
+    text = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+    let planData;
+    try {
+      planData = JSON.parse(text);
+    } catch (e) {
+      // Dacă JSON-ul nu e valid, returnăm textul brut ca fallback
+      return res.status(200).json({ plan: text, format: 'text' });
     }
 
-    return res.status(200).json({ plan: text });
+    return res.status(200).json({ plan: planData, format: 'json' });
 
   } catch (error) {
     return res.status(500).json({ error: 'Eroare server. Încearcă din nou.' });
