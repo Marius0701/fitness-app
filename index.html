@@ -845,76 +845,173 @@
   <div class="section-tag">Testează acum</div>
   <h2 class="section-title reveal">Generează<br/><em>planul tău.</em></h2>
 
-  <div style="max-width:600px;margin-top:48px;background:var(--dark3);border-radius:12px;padding:32px;">
+  <div style="max-width:640px;margin-top:48px;">
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-      <div>
-        <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Sex</label>
-        <select id="gen-sex" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 14px;font-size:15px;font-family:'Barlow',sans-serif;">
-          <option value="">Selectează</option>
-          <option value="Masculin">Masculin</option>
-          <option value="Feminin">Feminin</option>
-          <option value="Prefer să nu spun">Prefer să nu spun</option>
-        </select>
+    <!-- FORM -->
+    <div style="background:var(--dark3);border-radius:12px;padding:32px;margin-bottom:20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div>
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Sex</label>
+          <select id="gen-sex" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 12px;font-size:14px;font-family:'Barlow',sans-serif;">
+            <option value="">Selectează</option>
+            <option value="Masculin">Masculin</option>
+            <option value="Feminin">Feminin</option>
+            <option value="Prefer să nu spun">Prefer să nu spun</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Nivel</label>
+          <select id="gen-nivel" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 12px;font-size:14px;font-family:'Barlow',sans-serif;">
+            <option value="">Selectează</option>
+            <option value="Începător">Începător</option>
+            <option value="Intermediar">Intermediar</option>
+            <option value="Avansat">Avansat</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Obiectiv</label>
+          <select id="gen-obiectiv" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 12px;font-size:14px;font-family:'Barlow',sans-serif;">
+            <option value="">Selectează</option>
+            <option value="Slăbit">Slăbit</option>
+            <option value="Masă musculară">Masă musculară</option>
+            <option value="Tonifiere">Tonifiere</option>
+            <option value="Forță">Forță</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Zile/săptămână</label>
+          <select id="gen-zile" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 12px;font-size:14px;font-family:'Barlow',sans-serif;">
+            <option value="">Selectează</option>
+            <option value="2">2 zile</option>
+            <option value="3">3 zile</option>
+            <option value="4">4 zile</option>
+            <option value="5">5 zile</option>
+          </select>
+        </div>
+        <div style="grid-column:span 2;">
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.12em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Echipament</label>
+          <select id="gen-echipament" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 12px;font-size:14px;font-family:'Barlow',sans-serif;">
+            <option value="">Selectează</option>
+            <option value="Sală completă">Sală completă</option>
+            <option value="Acasă bodyweight">Acasă (bodyweight)</option>
+            <option value="Acasă cu gantere">Acasă + gantere</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Nivel</label>
-        <select id="gen-nivel" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 14px;font-size:15px;font-family:'Barlow',sans-serif;">
-          <option value="">Selectează</option>
-          <option value="Începător">Începător</option>
-          <option value="Intermediar">Intermediar</option>
-          <option value="Avansat">Avansat</option>
-        </select>
-      </div>
-      <div>
-        <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Obiectiv</label>
-        <select id="gen-obiectiv" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 14px;font-size:15px;font-family:'Barlow',sans-serif;">
-          <option value="">Selectează</option>
-          <option value="Slăbit">Slăbit</option>
-          <option value="Masă musculară">Masă musculară</option>
-          <option value="Tonifiere">Tonifiere</option>
-          <option value="Forță">Forță</option>
-        </select>
-      </div>
-      <div>
-        <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Zile/săptămână</label>
-        <select id="gen-zile" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 14px;font-size:15px;font-family:'Barlow',sans-serif;">
-          <option value="">Selectează</option>
-          <option value="2">2 zile</option>
-          <option value="3">3 zile</option>
-          <option value="4">4 zile</option>
-          <option value="5">5 zile</option>
-        </select>
-      </div>
-      <div style="grid-column:span 2;">
-        <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Echipament</label>
-        <select id="gen-echipament" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 14px;font-size:15px;font-family:'Barlow',sans-serif;">
-          <option value="">Selectează</option>
-          <option value="Sală completă">Sală completă</option>
-          <option value="Acasă bodyweight">Acasă (bodyweight)</option>
-          <option value="Acasă cu gantere">Acasă + gantere</option>
-        </select>
-      </div>
+      <input id="gen-restrictii" type="text" placeholder="Restricții medicale (opțional)" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 12px;font-size:14px;font-family:'Barlow',sans-serif;margin-bottom:14px;display:block;"/>
+      <button id="gen-btn" style="width:100%;background:var(--lime);color:#080808;border:none;border-radius:8px;padding:14px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;">
+        ⚡ Generează Planul Meu
+      </button>
+      <div id="gen-error" style="display:none;color:#ff6b6b;font-size:13px;margin-top:12px;"></div>
     </div>
 
-    <input id="gen-restrictii" type="text" placeholder="Restricții medicale (opțional)" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 14px;font-size:15px;font-family:'Barlow',sans-serif;margin-bottom:16px;"/>
-
-    <button id="gen-btn" style="width:100%;background:var(--lime);color:#080808;border:none;border-radius:8px;padding:14px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">
-      Generează Planul Meu
-    </button>
-
-    <div id="gen-error" style="display:none;color:#ff6b6b;font-size:13px;margin-top:12px;"></div>
-
-    <div id="gen-loading" style="display:none;text-align:center;padding:24px 0;color:#888;font-size:14px;">
-      ⚡ AI-ul construiește planul tău...
+    <!-- LOADING -->
+    <div id="gen-loading" style="display:none;text-align:center;padding:40px 0;color:#888;">
+      <div style="font-size:36px;animation:spin 1s linear infinite;display:inline-block;">⚡</div>
+      <p style="margin-top:12px;font-size:14px;">AI-ul construiește planul tău...</p>
     </div>
 
-    <div id="gen-result" style="display:none;margin-top:20px;background:#0d0d0d;border-radius:8px;padding:20px;white-space:pre-wrap;line-height:1.7;font-size:14px;color:#ddd;max-height:500px;overflow-y:auto;"></div>
+    <!-- REZULTAT STRUCTURAT -->
+    <div id="gen-result" style="display:none;">
+
+      <!-- Header obiectiv -->
+      <div id="res-obiectiv" style="background:var(--lime);color:#080808;border-radius:12px;padding:16px 20px;margin-bottom:20px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.05em;"></div>
+
+      <!-- Zile -->
+      <div id="res-zile"></div>
+
+      <!-- Nutritie -->
+      <div id="res-nutritie" style="background:var(--dark3);border-radius:12px;padding:24px;margin-top:16px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--lime);margin-bottom:14px;">🥗 Nutriție</div>
+        <div id="res-nutritie-list"></div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div style="margin-top:16px;padding:12px 16px;background:#1a1a1a;border-radius:8px;font-size:12px;color:#666;line-height:1.6;">
+        ⚠️ Acest plan are caracter informativ general. Consultă un medic sau kinetoterapeut înainte de a începe orice program de exerciții.
+      </div>
+
+    </div>
+
+    <!-- FALLBACK text simplu dacă JSON-ul nu e valid -->
+    <div id="gen-result-text" style="display:none;background:#0d0d0d;border-radius:8px;padding:20px;white-space:pre-wrap;line-height:1.8;font-size:14px;color:#ddd;"></div>
 
   </div>
 </section>
 
+<style>
+@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.ex-card {
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #222;
+  transition: border-color .2s;
+}
+.ex-card:hover { border-color: #D4F53C; }
+.ex-img {
+  width: 72px; height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #222;
+  flex-shrink: 0;
+}
+.ex-img-placeholder {
+  width: 72px; height: 72px;
+  border-radius: 8px;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.ex-info { flex: 1; }
+.ex-name { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: #F2F2F2; letter-spacing: 0.04em; }
+.ex-seturi { font-size: 13px; color: #888; margin-top: 3px; }
+.ex-yt {
+  background: #FF0000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.ex-yt:hover { opacity: .85; }
+.zi-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+.zi-badge {
+  background: var(--dark3);
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--lime);
+}
+.zi-grupa { font-size: 13px; color: #666; }
+</style>
+
 <!-- PRICING -->
+
 <section id="pricing">
   <div class="section-tag">Prețuri</div>
   <h2 class="section-title reveal">Investiție<br/><em>minimă.</em></h2>
@@ -1079,6 +1176,7 @@
     var errBox = document.getElementById('gen-error');
     var loadingBox = document.getElementById('gen-loading');
     var resultBox = document.getElementById('gen-result');
+    var resultText = document.getElementById('gen-result-text');
 
     if (!nivel || !obiectiv || !zile) {
       errBox.textContent = 'Te rog completează cel puțin: nivel, obiectiv și zile/săptămână.';
@@ -1088,6 +1186,7 @@
 
     errBox.style.display = 'none';
     resultBox.style.display = 'none';
+    resultText.style.display = 'none';
     loadingBox.style.display = 'block';
     document.getElementById('gen-btn').disabled = true;
 
@@ -1103,18 +1202,99 @@
       if (!res.ok) {
         errBox.textContent = data.error || 'A apărut o eroare. Încearcă din nou.';
         errBox.style.display = 'block';
-      } else {
-        resultBox.textContent = data.plan;
+      } else if (data.format === 'json' && data.plan) {
+        renderPlan(data.plan);
         resultBox.style.display = 'block';
+      } else {
+        resultText.textContent = data.plan || data;
+        resultText.style.display = 'block';
       }
     } catch (e) {
-      errBox.textContent = 'Nu s-a putut contacta serverul. Verifică conexiunea și încearcă din nou.';
+      errBox.textContent = 'Nu s-a putut contacta serverul. Încearcă din nou.';
       errBox.style.display = 'block';
     }
 
     loadingBox.style.display = 'none';
     document.getElementById('gen-btn').disabled = false;
   });
+
+  function renderPlan(plan) {
+    // Obiectiv
+    document.getElementById('res-obiectiv').textContent = '🎯 ' + (plan.obiectiv || '');
+
+    // Zile + exerciții
+    var zileContainer = document.getElementById('res-zile');
+    zileContainer.innerHTML = '';
+
+    (plan.zile || []).forEach(function(zi) {
+      var ziDiv = document.createElement('div');
+
+      // Header zi
+      var ziHeader = document.createElement('div');
+      ziHeader.className = 'zi-header';
+      ziHeader.innerHTML = '<span class="zi-badge">' + zi.zi + '</span><span class="zi-grupa">' + (zi.grupa || '') + '</span>';
+      ziDiv.appendChild(ziHeader);
+
+      // Exerciții
+      (zi.exercitii || []).forEach(function(ex) {
+        var card = document.createElement('div');
+        card.className = 'ex-card';
+
+        // Imagine exercițiu din Wger (open source, gratuit, fără cheie API)
+        var imgSearchTerm = encodeURIComponent(ex.nume);
+        var imgEl = document.createElement('div');
+        imgEl.className = 'ex-img-placeholder';
+        imgEl.textContent = getExerciseEmoji(ex.nume);
+
+        // YouTube link
+        var ytSearch = encodeURIComponent(ex.youtube_search || ex.nume + ' exercise tutorial');
+        var ytUrl = 'https://www.youtube.com/results?search_query=' + ytSearch;
+
+        var infoDiv = document.createElement('div');
+        infoDiv.className = 'ex-info';
+        infoDiv.innerHTML = '<div class="ex-name">' + ex.nume + '</div><div class="ex-seturi">' + ex.seturi + ' seturi × ' + ex.repetari + '</div>';
+
+        var ytBtn = document.createElement('a');
+        ytBtn.className = 'ex-yt';
+        ytBtn.href = ytUrl;
+        ytBtn.target = '_blank';
+        ytBtn.rel = 'noopener noreferrer';
+        ytBtn.innerHTML = '▶ Video';
+
+        card.appendChild(imgEl);
+        card.appendChild(infoDiv);
+        card.appendChild(ytBtn);
+        ziDiv.appendChild(card);
+      });
+
+      zileContainer.appendChild(ziDiv);
+    });
+
+    // Nutriție
+    var nutritieList = document.getElementById('res-nutritie-list');
+    nutritieList.innerHTML = '';
+    (plan.nutritie || []).forEach(function(sfat) {
+      var p = document.createElement('p');
+      p.style.cssText = 'font-size:14px;color:#aaa;line-height:1.7;margin-bottom:8px;padding-left:16px;border-left:2px solid #D4F53C;';
+      p.textContent = sfat;
+      nutritieList.appendChild(p);
+    });
+  }
+
+  function getExerciseEmoji(nume) {
+    var n = (nume || '').toLowerCase();
+    if (n.includes('squat') || n.includes('genuflexiuni')) return '🦵';
+    if (n.includes('plank') || n.includes('core') || n.includes('abdomen')) return '💪';
+    if (n.includes('flotări') || n.includes('push')) return '🤸';
+    if (n.includes('fandări') || n.includes('lunge')) return '🏃';
+    if (n.includes('glute') || n.includes('fese')) return '🍑';
+    if (n.includes('cardio') || n.includes('alergare') || n.includes('jumping')) return '🏃';
+    if (n.includes('tracțiuni') || n.includes('pull')) return '🧗';
+    if (n.includes('îndreptări') || n.includes('deadlift')) return '🏋️';
+    if (n.includes('împins') || n.includes('press')) return '💪';
+    if (n.includes('bicicletă') || n.includes('bike')) return '🚴';
+    return '⚡';
+  }
 </script>
 
 <!-- MODAL -->
