@@ -704,6 +704,7 @@
     <li><a href="#how">Cum funcționează</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Prețuri</a></li>
+    <li><a href="#termeni">Termeni</a></li>
   </ul>
   <button class="nav-cta" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Începe Acum</button>
 </nav>
@@ -848,6 +849,15 @@
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
       <div>
+        <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Sex</label>
+        <select id="gen-sex" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 14px;font-size:15px;font-family:'Barlow',sans-serif;">
+          <option value="">Selectează</option>
+          <option value="Masculin">Masculin</option>
+          <option value="Feminin">Feminin</option>
+          <option value="Prefer să nu spun">Prefer să nu spun</option>
+        </select>
+      </div>
+      <div>
         <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Nivel</label>
         <select id="gen-nivel" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 14px;font-size:15px;font-family:'Barlow',sans-serif;">
           <option value="">Selectează</option>
@@ -876,7 +886,7 @@
           <option value="5">5 zile</option>
         </select>
       </div>
-      <div>
+      <div style="grid-column:span 2;">
         <label style="font-size:12px;font-weight:700;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:6px;display:block;">Echipament</label>
         <select id="gen-echipament" style="width:100%;background:#1c1c1c;border:1px solid #333;border-radius:8px;color:#F2F2F2;padding:10px 14px;font-size:15px;font-family:'Barlow',sans-serif;">
           <option value="">Selectează</option>
@@ -960,6 +970,49 @@
   <a href="#generator" class="btn-dark">Generează Planul Meu →</a>
 </section>
 
+<!-- TERMENI SI CONDITII -->
+<section id="termeni" style="padding:80px 48px;background:var(--dark);">
+  <div style="max-width:680px;margin:0 auto;">
+    <div class="section-tag">Legal</div>
+    <h2 class="section-title reveal">Termeni &<br/><em>Condiții.</em></h2>
+
+    <div style="display:flex;flex-direction:column;gap:24px;margin-top:40px;">
+
+      <div style="border-left:2px solid var(--lime);padding-left:20px;">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">1. Natura serviciului</h3>
+        <p style="font-size:14px;color:#888;line-height:1.8;font-weight:300;">FORJA este un generator automat de planuri de antrenament bazat pe inteligență artificială. Planurile generate au caracter <strong style="color:#bbb">informativ general</strong> și nu constituie sfat medical, nutrițional sau de specialitate. Aplicația se află în fază de testare (sandbox).</p>
+      </div>
+
+      <div style="border-left:2px solid var(--lime);padding-left:20px;">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">2. Limitarea răspunderii</h3>
+        <p style="font-size:14px;color:#888;line-height:1.8;font-weight:300;">FORJA și echipa sa nu sunt responsabili pentru niciun prejudiciu, accidentare sau efect negativ rezultat din utilizarea planurilor generate. Utilizatorul își asumă integral responsabilitatea pentru aplicarea oricărui plan de antrenament.</p>
+      </div>
+
+      <div style="border-left:2px solid var(--lime);padding-left:20px;">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">3. Recomandare medicală</h3>
+        <p style="font-size:14px;color:#888;line-height:1.8;font-weight:300;">Înainte de a începe orice program de exerciții, consultați un medic sau specialist autorizat, în special dacă aveți afecțiuni medicale preexistente, sarcină, leziuni recente sau orice altă condiție relevantă de sănătate.</p>
+      </div>
+
+      <div style="border-left:2px solid var(--lime);padding-left:20px;">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">4. Date personale (GDPR)</h3>
+        <p style="font-size:14px;color:#888;line-height:1.8;font-weight:300;">Adresele de email colectate prin formularul de înregistrare sunt folosite exclusiv pentru a vă contacta în legătură cu lansarea oficială a platformei. Nu vindem, nu închiriem și nu partajăm datele dumneavoastră cu terți. Aveți dreptul de a solicita ștergerea datelor oricând la adresa de contact.</p>
+      </div>
+
+      <div style="border-left:2px solid var(--lime);padding-left:20px;">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">5. Faza de testare</h3>
+        <p style="font-size:14px;color:#888;line-height:1.8;font-weight:300;">Aplicația se află în fază de testare (sandbox). Niciun utilizator nu va fi taxat în această perioadă. Funcționalitățile, prețurile și condițiile pot fi modificate înainte de lansarea oficială. Prin utilizarea aplicației în această fază, acceptați că serviciul poate fi incomplet sau poate conține erori.</p>
+      </div>
+
+      <div style="border-left:2px solid var(--lime);padding-left:20px;">
+        <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);margin-bottom:8px;">6. Proprietate intelectuală</h3>
+        <p style="font-size:14px;color:#888;line-height:1.8;font-weight:300;">Designul, codul și conținutul platformei FORJA sunt proprietatea echipei FORJA. Planurile de antrenament generate sunt oferite utilizatorului pentru uz personal și nu pot fi redistribuite comercial.</p>
+      </div>
+
+      <p style="font-size:12px;color:#555;margin-top:8px;">Ultima actualizare: Iunie 2026 · Versiune sandbox</p>
+    </div>
+  </div>
+</section>
+
 <!-- DISCLAIMER -->
 <section style="padding:60px 48px;background:var(--dark2);border-top:1px solid var(--border);">
   <div style="max-width:680px;margin:0 auto;">
@@ -1016,6 +1069,7 @@
 
 <script>
   document.getElementById('gen-btn').addEventListener('click', async function() {
+    var sex = document.getElementById('gen-sex').value;
     var nivel = document.getElementById('gen-nivel').value;
     var obiectiv = document.getElementById('gen-obiectiv').value;
     var zile = document.getElementById('gen-zile').value;
@@ -1041,7 +1095,7 @@
       var res = await fetch('/api/generate-plan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nivel: nivel, obiectiv: obiectiv, zile: zile, echipament: echipament, restrictii: restrictii })
+        body: JSON.stringify({ gen: sex, nivel: nivel, obiectiv: obiectiv, zile: zile, echipament: echipament, restrictii: restrictii })
       });
 
       var data = await res.json();
