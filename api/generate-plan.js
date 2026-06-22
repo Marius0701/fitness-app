@@ -1,47 +1,71 @@
 export default async function handler(req, res) {
-  // Permite doar cereri de tip POST
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Metoda nu este permisă. Folosește POST.' });
+    return res.status(405).json({ error: 'Metoda nu este permisă.' });
   }
 
-  // Cheia API e citită din variabila de mediu - NU e niciodată expusă în browser
   const apiKey = process.env.ANTHROPIC_API_KEY;
-
   if (!apiKey) {
-    return res.status(500).json({
-      error: 'Cheia API nu este configurată pe server. Verifică Environment Variables în Vercel.'
-    });
+    return res.status(500).json({ error: 'Cheia API nu este configurată pe server.' });
   }
 
-  const { nivel, obiectiv, zile, echipament, varsta, gen, restrictii } = req.body || {};
+  const { nivel, obiectiv, zile, echipament, gen, restrictii } = req.body || {};
 
-  // Validare de bază
   if (!nivel || !obiectiv || !zile) {
-    return res.status(400).json({
-      error: 'Lipsesc date obligatorii: nivel, obiectiv și zile sunt necesare.'
-    });
+    return res.status(400).json({ error: 'Completează nivel, obiectiv și zile.' });
   }
 
-  const prompt = `Ești un antrenor personal expert. Creează un plan de antrenament săptămânal detaliat și profesionist în română, bazat pe următoarele date:
+  const numarZile = parseInt(zile) || 3;
 
+  // Generăm exact zilele specificate, nicio zi în plus
+  const zileNume = ['Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă', 'Duminică'];
+  const zilePlan = zileNume.slice(0, numarZile).join(', ');
+
+  const genText = gen === 'Masculin' ? 'bărbat' : gen === 'Feminin' ? 'femeie' : 'persoană';
+
+  const focusFeminin = obiectiv === 'Tonifiere' || obiectiv === 'Slăbit'
+    ? 'Pune accent pe exerciții pentru zona inferioară (fese, coapse), core și cardio moderat. Evită exerciții care cresc excesiv masa musculară la spate și umeri.'
+    : '';
+
+  const focusMasculin = obiectiv === 'Masă musculară' || obiectiv === 'Forță'
+    ? 'Pune accent pe exerciții compuse grele (genuflexiuni, împins, tracțiuni). Volum mare pe piept, spate, umeri și picioare.'
+    : '';
+
+  const focusGen = gen === 'Feminin' ? focusFeminin : gen === 'Masculin' ? focusMasculin : '';
+
+  const prompt = `Ești antrenor personal expert. Creează un plan de antrenament CONCIS și UȘOR DE ÎNȚELES în română pentru o ${genText}.
+
+DATE:
 - Gen: ${gen || 'nespecificat'}
-- Vârstă: ${varsta || 'nespecificată'}
 - Nivel: ${nivel}
-- Obiectiv principal: ${obiectiv}
-- Zile disponibile/săptămână: ${zile}
-- Echipament disponibil: ${echipament || 'nu a specificat'}
-- Restricții / probleme medicale: ${restrictii || 'niciuna'}
+- Obiectiv: ${obiectiv}
+- Zile de antrenament: ${numarZile} zile (${zilePlan})
+- Echipament: ${echipament || 'sală completă'}
+- Restricții: ${restrictii || 'niciuna'}
 
-Planul trebuie să conțină:
-1. O scurtă introducere personalizată (2-3 propoziții)
-2. Structura săptămânală (zi cu zi) cu exercițiile, seturile, repetările și pauzele recomandate
-3. Sfaturi de nutriție (3-4 puncte esențiale)
-4. Sfaturi de recuperare
-5. Un mesaj motivațional final
+REGULI STRICTE:
+1. Creează EXACT ${numarZile} zile de antrenament — nu mai mult, nu mai puțin
+2. Fiecare zi: maxim 5 exerciții, scrise simplu (ex: "Flotări 3x12")
+3. Fără explicații lungi — doar ce trebuie să facă
+4. ${focusGen}
+5. La final: 3 sfaturi de nutriție scurte (1 propoziție fiecare)
+6. Disclaimer scurt: "⚠️ Consultă un medic înainte de a începe."
 
-IMPORTANT: Acest plan are caracter informativ general și nu înlocuiește sfatul unui medic sau kinetoterapeut. Menționează acest lucru pe scurt la final dacă utilizatorul a specificat restricții medicale.
+FORMAT:
+🎯 OBIECTIV: [obiectiv în 1 propoziție]
 
-Formatează frumos cu structuri clare.`;
+📅 ZIUA 1 — [Luni / grupă musculară]
+• Exercițiu 1 — seturi x repetări
+• Exercițiu 2 — seturi x repetări
+[etc]
+
+[repetă pentru toate cele ${numarZile} zile]
+
+🥗 NUTRIȚIE:
+• Sfat 1
+• Sfat 2  
+• Sfat 3
+
+⚠️ Consultă un medic înainte de a începe orice program de exerciții.`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -53,7 +77,7 @@ Formatează frumos cu structuri clare.`;
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
-        max_tokens: 1500,
+        max_tokens: 1200,
         messages: [{ role: 'user', content: prompt }],
       }),
     });
@@ -61,24 +85,20 @@ Formatează frumos cu structuri clare.`;
     const data = await response.json();
 
     if (!response.ok) {
-      console.error('Eroare API Anthropic:', data);
       return res.status(response.status).json({
-        error: data.error?.message || 'Eroare la generarea planului. Încearcă din nou.'
+        error: data.error?.message || 'Eroare la generare. Încearcă din nou.'
       });
     }
 
-    const text = data.content?.map((block) => block.text || '').join('\n') || '';
+    const text = data.content?.map((b) => b.text || '').join('\n') || '';
 
     if (!text) {
-      return res.status(500).json({ error: 'Nu am primit niciun text generat. Încearcă din nou.' });
+      return res.status(500).json({ error: 'Nu am primit răspuns. Încearcă din nou.' });
     }
 
     return res.status(200).json({ plan: text });
 
   } catch (error) {
-    console.error('Eroare server:', error);
-    return res.status(500).json({
-      error: 'A apărut o eroare neașteptată pe server. Încearcă din nou în câteva momente.'
-    });
+    return res.status(500).json({ error: 'Eroare server. Încearcă din nou.' });
   }
 }
